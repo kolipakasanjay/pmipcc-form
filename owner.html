@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PMI Pearl City Chapter | Owner Administration Portal</title>
+  <meta name="description" content="PMI Pearl City Hyderabad Chapter - Owner Administration Portal. Confidential management, inspection, and exports for portfolio content requisitions.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="css/styles.css?v=4.0.0">
+  <link rel="stylesheet" href="css/owner.css?v=4.0.0">
+  <!-- Version-pinned trusted SheetJS for Client-Side Excel (.xlsx) Generation -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Sticky Header -->
+  <header class="app-header">
+    <div class="brand-ribbon" aria-hidden="true"></div>
+    <div class="header-container">
+      <a href="index.html" class="brand-wrapper" title="Return to Form Submission Page" aria-label="PMI Pearl City Chapter Hyderabad - Content Submission Form">
+        <img src="assets/pmi-logo-color.svg" alt="PMI Pearl City Chapter Hyderabad" class="brand-logo" width="220" height="62">
+        <div class="brand-badge-box">
+          <span class="brand-subtext">Owner Administration</span>
+          <span class="brand-badge brand-badge-owner">Enterprise Admin</span>
+        </div>
+      </a>
+      
+      <nav class="header-actions" aria-label="Administrative Navigation">
+        <a href="index.html" class="nav-button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>Submit Request</span>
+        </a>
+
+        <!-- Authenticated Owner Controls -->
+        <button type="button" class="nav-button" id="changePasswordNavBtn" style="display: none;" title="Update owner account password">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-6 6l7-7m-7 7l-2 2m-2-2l2-2m-4 4l-4 4a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l4-4m4 4l-2-2"></path></svg>
+          <span>Change Password</span>
+        </button>
+
+        <button type="button" class="nav-button nav-button-danger" id="logoutBtn" style="display: none;" title="Sign out of owner portal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span>Log Out</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Administrative Container -->
+  <main class="main-wrapper">
+
+    <!-- STATE 1: SECURE AUTHENTICATION SCREEN -->
+    <section class="form-card" id="authCard" style="max-width: 480px; margin: 3rem auto; padding: 0;">
+      <div class="form-header" style="text-align: center; border-bottom: none; padding-bottom: 0.5rem;">
+        <div style="width: 58px; height: 58px; border-radius: var(--radius-full); background: var(--pmi-blue-light); color: var(--pmi-dark); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; border: 1.5px solid var(--pmi-blue-border); box-shadow: 0 4px 10px rgba(0, 51, 102, 0.08);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <h1 style="font-size: 1.5rem; color: var(--pmi-dark);">Owner Portal Sign In</h1>
+        <p class="form-header-desc" style="font-size: 0.875rem; margin-bottom: 0;">
+          Authenticate to access confidential PMI Pearl City Chapter portfolio requisitions, attachments, and exports.
+        </p>
+      </div>
+
+      <form id="ownerLoginForm" class="form-body" style="padding-top: 1rem;" novalidate>
+        
+        <!-- Login Alert Banner -->
+        <div id="loginAlertBox" style="display: none; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 0.75rem;"></div>
+
+        <!-- 1-Click Instant Owner Login Option -->
+        <div style="background: linear-gradient(135deg, var(--pmi-blue-light) 0%, #f0fdf4 100%); border: 1.5px solid var(--pmi-blue-border); border-radius: var(--radius-md); padding: 1.15rem; margin-bottom: 1.25rem; text-align: center;">
+          <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--pmi-dark); margin-bottom: 0.5rem;">
+            ⚡ Quick Authorization
+          </div>
+          <button type="button" id="instantLoginBtn" class="btn btn-primary" style="width: 100%; min-height: 44px; font-size: 0.9rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <span>1-Click Instant Owner Login</span>
+          </button>
+        </div>
+
+        <div style="display: flex; align-items: center; margin: 0.75rem 0 1.25rem; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+          <div style="flex: 1; height: 1px; background: var(--border-light);"></div>
+          <span style="padding: 0 0.75rem;">Or Enter Credentials</span>
+          <div style="flex: 1; height: 1px; background: var(--border-light);"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ownerUsernameInput">Username</label>
+          <input type="text" class="form-control" id="ownerUsernameInput" name="username" value="admin" autocomplete="username" required>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label class="form-label" for="ownerPasswordInput">Password</label>
+            <button type="button" id="togglePasswordBtn" style="background: none; border: none; font-size: 0.775rem; color: var(--pmi-blue); cursor: pointer; text-decoration: underline; font-weight: 600;">Show Password</button>
+          </div>
+          <input type="password" class="form-control" id="ownerPasswordInput" name="password" placeholder="Enter owner password" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitLoginBtn" style="width: 100%; margin-top: 0.75rem;">
+          <span>Sign In to Access Requisitions</span>
+        </button>
+
+        <!-- Bootstrap Security Notice -->
+        <div style="margin-top: 1rem; padding: 0.85rem 1rem; background-color: var(--surface-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-md); font-size: 0.775rem; color: var(--text-muted); line-height: 1.5;">
+          <strong>Security Setup:</strong> Credentials: Username <code>admin</code>, Password <code>owner@pmi2026</code> (or <code>PMI2026</code>). Click the button above for instant sign-in.
+        </div>
+      </form>
+    </section>
+
+    <!-- STATE 2: AUTHENTICATED OWNER DASHBOARD -->
+    <div class="dashboard-container" id="dashboardContainer" style="display: none;">
+      
+      <!-- Metrics Overview Cards -->
+      <section class="metrics-grid" aria-label="Key Requisition Metrics">
+        <div class="metric-card accent-blue">
+          <div class="metric-info">
+            <h3>Total Requisitions</h3>
+            <div class="metric-value" id="kpiTotal">0</div>
+          </div>
+          <div class="metric-icon-box" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="metric-card accent-cyan">
+          <div class="metric-info">
+            <h3>Active Portfolios</h3>
+            <div class="metric-value" id="kpiPortfolios">0</div>
+          </div>
+          <div class="metric-icon-box teal" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          </div>
+        </div>
+
+        <div class="metric-card accent-orange">
+          <div class="metric-info">
+            <h3>Pending Review</h3>
+            <div class="metric-value" id="kpiPending">0</div>
+          </div>
+          <div class="metric-icon-box accent" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="metric-card accent-purple">
+          <div class="metric-info">
+            <h3>Permanent Storage</h3>
+            <div style="font-size: 0.95rem; font-weight: 700; color: var(--color-success); margin-top: 0.35rem;">
+              database.sqlite (WAL)
+            </div>
+          </div>
+          <div class="metric-icon-box purple" aria-hidden="true" style="background-color: var(--color-success-bg); color: var(--color-success);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search, Filter & Export Toolbar -->
+      <section class="toolbar-card" aria-label="Toolbar and Filters">
+        <div class="toolbar-row">
+          
+          <div class="search-filter-box">
+            <!-- Search Bar -->
+            <div class="search-input-wrapper">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" class="search-input" id="tableSearchInput" placeholder="Search by Record ID, Title, Submitter, or Content...">
+            </div>
+
+            <!-- Portfolio Filter (All 12 Portfolios) -->
+            <select class="filter-select" id="filterPortfolio" aria-label="Filter by Portfolio">
+              <option value="">All Portfolios (12 Total)</option>
+              <option value="President">1. President</option>
+              <option value="Governance Team">2. Governance Team</option>
+              <option value="Events Team">3. Events Team</option>
+              <option value="General Secretary">4. General Secretary</option>
+              <option value="MARCOM Team">5. MARCOM Team</option>
+              <option value="Finance Team">6. Finance Team</option>
+              <option value="Volunteers Team">7. Volunteers Team</option>
+              <option value="Membership">8. Membership</option>
+              <option value="Social Impact">9. Social Impact</option>
+              <option value="Academia">10. Academia</option>
+              <option value="Corporate Team">11. Corporate Team</option>
+              <option value="Academy">12. Academy</option>
+            </select>
+          </div>
+
+          <!-- Action Buttons Group -->
+          <div class="action-buttons-group">
+            <button type="button" class="btn btn-secondary btn-sm" id="refreshBtn" title="Reload all records from database">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              <span>Refresh</span>
+            </button>
+
+            <!-- EXACT Required Download Buttons -->
+            <button type="button" class="btn btn-secondary btn-sm btn-export-excel" id="downloadExcelBtn" title="Export all requisitions to Excel (.xlsx)">
+              <span>📥 Download Excel (.xlsx)</span>
+            </button>
+
+            <button type="button" class="btn btn-secondary btn-sm btn-export-csv" id="downloadCsvBtn" title="Export all requisitions to CSV">
+              <span>📄 Download CSV</span>
+            </button>
+
+            <!-- Destructive Action Button -->
+            <button type="button" class="btn btn-secondary btn-sm" id="clearDatabaseBtn" style="color: var(--color-danger); border-color: var(--color-danger-border);" title="Permanently clear all database requisitions">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span>Clear Database</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Filters Row -->
+        <div class="active-filters-row" id="activeFiltersRow" style="display: none;">
+          <span>Active Filter:</span>
+          <span class="filter-pill" id="activeFilterPill">
+            <span id="activeFilterText">Portfolio</span>
+            <button type="button" class="filter-pill-close" id="clearFilterBtn" aria-label="Clear filter">&times;</button>
+          </span>
+        </div>
+      </section>
+
+      <!-- Requisitions Table Card -->
+      <section class="table-card" aria-label="Requisitions Data Table">
+        <div class="table-header-bar">
+          <div class="table-header-title">Requisitions Log</div>
+          <span class="records-badge" id="recordsCountDisplay">Showing 0 of 0 records</span>
+        </div>
+
+        <!-- Desktop Table View -->
+        <div class="table-responsive">
+          <table class="data-table" id="requestsTable">
+            <thead>
+              <tr>
+                <th scope="col">Record ID</th>
+                <th scope="col">Date (UTC)</th>
+                <th scope="col">Portfolio</th>
+                <th scope="col">Request Title</th>
+                <th scope="col">Submitter</th>
+                <th scope="col">Channel</th>
+                <th scope="col">Delivery Date</th>
+                <th scope="col">Attachments</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="requestsTableBody">
+              <!-- Dynamically populated via js/owner.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Touch Card List -->
+        <div class="mobile-cards-list" id="mobileCardsList">
+          <!-- Dynamically populated on narrow viewports -->
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="emptyStateBox" class="empty-state" style="display: none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+          <h3>No Requisitions Found</h3>
+          <p>No content requests match the active filter criteria or search query.</p>
+        </div>
+
+        <!-- Pagination Controls Bar -->
+        <div class="pagination-bar" id="paginationBar">
+          <span class="page-info" id="pageInfoText">Page 1 of 1</span>
+          <div class="pagination-controls">
+            <button type="button" class="btn btn-secondary btn-sm" id="prevPageBtn" disabled>&larr; Previous</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="nextPageBtn" disabled>Next &rarr;</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- MODAL 1: REQUISITION DETAILS INSPECTION MODAL -->
+  <div class="modal-backdrop" id="inspectModal" role="dialog" aria-modal="true" aria-labelledby="inspectModalTitle">
+    <div class="modal-card inspect-modal-card">
+      
+      <div class="inspect-modal-header">
+        <div>
+          <h2 id="inspectModalTitle">Requisition Details</h2>
+          <span style="font-family: var(--font-mono); font-size: 0.85rem; color: #bae6fd;" id="modalRecordId">REQ-00000000-0000</span>
+        </div>
+        <button type="button" class="inspect-modal-close" id="closeInspectModalBtn" aria-label="Close dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="inspect-modal-body" id="inspectModalBody">
+        <!-- Dynamically rendered via owner.js -->
+      </div>
+
+      <div class="inspect-modal-footer">
+        <button type="button" class="btn btn-secondary" id="closeInspectModalFooterBtn">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL 2: CONFIRM SINGLE RECORD DELETION -->
+  <div class="modal-backdrop" id="deleteSingleModal" role="dialog" aria-modal="true" aria-labelledby="deleteSingleTitle">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-body" style="text-align: left; padding: 2rem;">
+        <div style="display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.25rem;">
+          <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--color-danger-bg); color: var(--color-danger); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+          <div>
+            <h3 id="deleteSingleTitle" style="font-size: 1.15rem; font-weight: 700; color: var(--pmi-dark);">Delete Requisition?</h3>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);" id="deleteTargetIdDisplay">REQ-XXXX</span>
+          </div>
+        </div>
+
+        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">
+          Are you sure you want to permanently delete this requisition? This action cannot be undone. Associated attachment files will be removed from disk storage.
+        </p>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" id="cancelDeleteSingleBtn">Cancel</button>
+          <button type="button" class="btn btn-primary btn-danger" id="confirmDeleteSingleBtn">
+            <span>Delete Permanently</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: CONFIRM CLEAR ALL DATABASE -->
+  <div class="modal-backdrop" id="clearDatabaseModal" role="dialog" aria-modal="true" aria-labelledby="clearDbTitle">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-body" style="text-align: left; padding: 2.25rem;">
+        <div style="display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.25rem;">
+          <div style="width: 48px; height: 48px; border-radius: var(--radius-full); background: var(--color-danger-bg); color: var(--color-danger); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+          </div>
+          <div>
+            <h3 id="clearDbTitle" style="font-size: 1.25rem; font-weight: 800; color: var(--color-danger);">Permanently Clear Database</h3>
+            <span class="input-hint">Destructive Administrative Operation</span>
+          </div>
+        </div>
+
+        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
+          This will permanently purge <strong>all requisitions</strong> and their associated private attachment files from SQLite database storage.
+        </p>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label" for="clearConfirmPhrase">
+            Type phrase to confirm: <code>PERMANENTLY CLEAR DATABASE</code>
+          </label>
+          <input type="text" class="form-control" id="clearConfirmPhrase" placeholder="PERMANENTLY CLEAR DATABASE" autocomplete="off">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label" for="clearPasswordConfirm">Owner Password (Re-authentication)</label>
+          <input type="password" class="form-control" id="clearPasswordConfirm" placeholder="Enter owner password">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" id="cancelClearDbBtn">Cancel</button>
+          <button type="button" class="btn btn-primary btn-danger" id="confirmClearDbBtn">
+            <span>Clear All Records</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: CHANGE OWNER PASSWORD MODAL -->
+  <div class="modal-backdrop" id="changePasswordModal" role="dialog" aria-modal="true" aria-labelledby="changePassTitle">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-body" style="text-align: left; padding: 2.25rem;">
+        <h3 id="changePassTitle" style="font-size: 1.25rem; font-weight: 800; color: var(--pmi-dark); margin-bottom: 0.4rem;">Update Owner Password</h3>
+        <p class="input-hint" style="margin-bottom: 1.25rem;">
+          For production security, replace the default bootstrap password with a secure custom credential.
+        </p>
+
+        <form id="changePasswordForm" novalidate>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label" for="currentPassInput">Current Password</label>
+            <input type="password" class="form-control" id="currentPassInput" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label" for="newPassInput">New Password (min 8 characters)</label>
+            <input type="password" class="form-control" id="newPassInput" minlength="8" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label" for="confirmPassInput">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirmPassInput" minlength="8" required>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-secondary" id="cancelChangePassBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submitChangePassBtn">
+              <span>Save New Password</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div>
+        <strong>Project Management Institute &bull; Pearl City, Hyderabad Chapter</strong>
+      </div>
+      <div>
+        Owner Administration Portal &bull; Permanent SQLite Storage &bull; Authorized Administrative Access Only
+      </div>
+      <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">
+        &copy; 2026 PMI Pearl City Chapter. All rights reserved. &bull; <a href="index.html">Submit Content Request</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/owner.js?v=4.0.0"></script>
+</body>
+</html>

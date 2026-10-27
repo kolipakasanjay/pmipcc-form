@@ -1,0 +1,22 @@
+{
+  "name": "pmi-content-request-system",
+  "version": "3.0.0",
+  "description": "PMI Portfolio Content Request Management System with Permanent SQLite Storage, Defense-in-Depth Security, and Enterprise Owner Administration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/suite.js && node test/ui_and_security.js"
+  },
+  "keywords": [
+    "pmi",
+    "portfolio",
+    "content-request",
+    "sqlite",
+    "enterprise"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "author": "PMI Enterprise Team",
+  "license": "ISC"
+}

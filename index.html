@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PMI Pearl City Chapter | Portfolio Content Request System</title>
+  <meta name="description" content="PMI Pearl City Hyderabad Chapter - Portfolio Content Request Management System. Multi-channel editorial intake for organizational portfolios.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="css/styles.css?v=4.0.0">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation & Header -->
+  <header class="app-header">
+    <div class="brand-ribbon" aria-hidden="true"></div>
+    <div class="header-container">
+      <a href="index.html" class="brand-wrapper" title="Return to Form Submission Page" aria-label="PMI Pearl City Chapter Hyderabad - Content Requisition System">
+        <img src="assets/pmi-logo-color.svg" alt="PMI Pearl City Chapter Hyderabad" class="brand-logo" width="220" height="62">
+        <div class="brand-badge-box">
+          <span class="brand-subtext">Content Intake Portal</span>
+          <span class="brand-badge">Confidential</span>
+        </div>
+      </a>
+      <nav class="header-actions" aria-label="Portal Navigation">
+        <a href="owner.html" class="nav-button" title="Access the Owner Administration Portal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Owner Portal</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-wrapper">
+
+    <!-- Requisition Submission Form Card -->
+    <section class="form-card" aria-labelledby="formTitle">
+      
+      <div class="form-header">
+        <span class="form-header-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Confidential Editorial Intake
+        </span>
+        <h1 id="formTitle">Submit Content Request</h1>
+        <p class="form-header-desc">Complete the guided sections below to submit your portfolio content requisition directly to the private PMI Pearl City Chapter editorial system.</p>
+
+        <!-- Privacy Assurance Banner -->
+        <div class="privacy-banner" role="note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          <div>
+            <strong>Confidential Requisition:</strong> Your submission is persisted securely to the private database. Submitted records are protected and viewable solely by authorized portfolio administration.
+          </div>
+        </div>
+      </div>
+
+      <form id="contentRequestForm" class="form-body" novalidate>
+
+        <!-- SECTION A: Request Information -->
+        <fieldset class="form-section">
+          <legend class="form-section-legend">
+            <span class="legend-badge">A</span>
+            <span>Request Information</span>
+          </legend>
+
+          <div class="grid-2">
+            <div class="form-group full-span" id="group-portfolio">
+              <label class="form-label" for="portfolio">
+                <span>Request from Which Portfolio <span class="required-star">*</span></span>
+              </label>
+              <select class="form-select" id="portfolio" name="portfolio" required aria-describedby="portfolio-hint portfolio-error">
+                <option value="">-- Select Designated Portfolio (1 of 12) --</option>
+                <option value="President">1. President</option>
+                <option value="Governance Team">2. Governance Team</option>
+                <option value="Events Team">3. Events Team</option>
+                <option value="General Secretary">4. General Secretary</option>
+                <option value="MARCOM Team">5. MARCOM Team</option>
+                <option value="Finance Team">6. Finance Team</option>
+                <option value="Volunteers Team">7. Volunteers Team</option>
+                <option value="Membership">8. Membership</option>
+                <option value="Social Impact">9. Social Impact</option>
+                <option value="Academia">10. Academia</option>
+                <option value="Corporate Team">11. Corporate Team</option>
+                <option value="Academy">12. Academy</option>
+              </select>
+              <span class="input-hint" id="portfolio-hint">Select the designated organizational portfolio submitting or sponsoring this request.</span>
+              <span class="field-error-message" id="portfolio-error">Please select a portfolio from the dropdown list.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION B: Submitter Information -->
+        <fieldset class="form-section">
+          <legend class="form-section-legend">
+            <span class="legend-badge">B</span>
+            <span>Submitter Information</span>
+          </legend>
+
+          <div class="grid-2">
+            <div class="form-group full-span" id="group-requestTitle">
+              <label class="form-label" for="requestTitle">
+                <span>Title / Topic <span class="required-star">*</span></span>
+              </label>
+              <input type="text" class="form-control" id="requestTitle" name="requestTitle" placeholder="e.g., Global Project Management Summit 2026 Announcement" required aria-describedby="title-error">
+              <span class="field-error-message" id="title-error">Please provide a clear title or topic for the requisition.</span>
+            </div>
+
+            <div class="form-group" id="group-submitterName">
+              <label class="form-label" for="submitterName">
+                <span>Full Name <span class="required-star">*</span></span>
+              </label>
+              <input type="text" class="form-control" id="submitterName" name="submitterName" autocomplete="name" placeholder="First and Last Name" required aria-describedby="name-error">
+              <span class="field-error-message" id="name-error">Please enter the submitter's full name.</span>
+            </div>
+
+            <div class="form-group" id="group-submitterRole">
+              <label class="form-label" for="submitterRole">
+                <span>Role / Designation</span>
+              </label>
+              <input type="text" class="form-control" id="submitterRole" name="submitterRole" placeholder="e.g., Portfolio Lead, Director, Volunteer Lead">
+            </div>
+
+            <div class="form-group" id="group-submitterEmail">
+              <label class="form-label" for="submitterEmail">
+                <span>Email Address <span class="required-star">*</span></span>
+              </label>
+              <input type="email" class="form-control" id="submitterEmail" name="submitterEmail" autocomplete="email" placeholder="name@organization.org" required aria-describedby="email-error">
+              <span class="field-error-message" id="email-error">Please provide a valid email address.</span>
+            </div>
+
+            <div class="form-group" id="group-submitterPhone">
+              <label class="form-label" for="submitterPhone">
+                <span>Phone Number</span>
+              </label>
+              <input type="tel" class="form-control" id="submitterPhone" name="submitterPhone" placeholder="+91 98765 43210">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION C: Publishing Channel -->
+        <fieldset class="form-section" id="group-publishingChannel">
+          <legend class="form-section-legend">
+            <span class="legend-badge">C</span>
+            <span>Publishing Channel <span class="required-star">*</span></span>
+          </legend>
+
+          <div class="radio-group" role="radiogroup" aria-label="Publishing Channel Selection">
+            <label class="radio-card" id="label-channel-social">
+              <input type="radio" name="publishingChannel" id="channelSocial" value="Social Media">
+              <span class="radio-card-label">Social Media</span>
+            </label>
+            <label class="radio-card" id="label-channel-email">
+              <input type="radio" name="publishingChannel" id="channelEmail" value="Email">
+              <span class="radio-card-label">Email</span>
+            </label>
+            <label class="radio-card" id="label-channel-both">
+              <input type="radio" name="publishingChannel" id="channelBoth" value="Both">
+              <span class="radio-card-label">Both</span>
+            </label>
+          </div>
+          <span class="field-error-message" id="publishingChannel-error" style="display: none; margin-top: 0.5rem;">Please select a publishing channel.</span>
+        </fieldset>
+
+        <!-- SECTION D: Content Details -->
+        <fieldset class="form-section">
+          <legend class="form-section-legend">
+            <span class="legend-badge">D</span>
+            <span>Content Details</span>
+          </legend>
+
+          <div class="grid-1">
+            <div class="form-group" id="group-headline">
+              <label class="form-label" for="headline">
+                <span>Suggested Headline / Hook</span>
+              </label>
+              <input type="text" class="form-control" id="headline" name="headline" placeholder="Engaging title or attention hook (or enter NA)">
+            </div>
+
+            <div class="form-group" id="group-mainContent">
+              <label class="form-label" for="mainContent">
+                <span>Suggested Main Content</span>
+              </label>
+              <textarea class="form-textarea" id="mainContent" name="mainContent" rows="6" placeholder="Provide full copy, announcement body, or editorial briefing... (or enter NA)" aria-describedby="mainContent-hint"></textarea>
+              
+              <!-- Live Word Counter with Recommendation Guidance -->
+              <div class="word-counter-bar">
+                <span class="input-hint" id="mainContent-hint">Recommended content length: 100–250 words.</span>
+                <span class="word-count-badge below" id="wordCountBadge">
+                  <span id="wordCountDisplay">0</span> words (Guidance: 100–250)
+                </span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION E: Event Information -->
+        <fieldset class="form-section">
+          <legend class="form-section-legend">
+            <span class="legend-badge">E</span>
+            <span>Event Information</span>
+          </legend>
+
+          <div class="grid-2">
+            <div class="form-group full-span">
+              <label class="form-label" for="eventName">
+                <span>Event Name</span>
+              </label>
+              <input type="text" class="form-control" id="eventName" name="eventName" placeholder="Official Event Title (or enter NA)">
+            </div>
+
+            <div class="form-group" id="group-eventDate">
+              <label class="form-label" for="eventDate">
+                <span>Event Date</span>
+              </label>
+              <input type="date" class="form-control" id="eventDate" name="eventDate" aria-describedby="eventDate-hint eventDate-error">
+              <span class="input-hint" id="eventDate-hint">Optional. Cannot be yesterday, today, or tomorrow (minimum 2 days ahead).</span>
+              <span class="field-error-message" id="eventDate-error">Event date cannot be yesterday, today, or tomorrow.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="eventTime">
+                <span>Event Time</span>
+              </label>
+              <input type="text" class="form-control" id="eventTime" name="eventTime" placeholder="e.g., 14:00 - 16:30 (or enter NA)">
+            </div>
+
+            <div class="form-group full-span">
+              <label class="form-label" for="timeZone">
+                <span>Time Zone</span>
+              </label>
+              <input type="text" class="form-control" id="timeZone" name="timeZone" placeholder="e.g., IST, UTC, EST (or enter NA)" style="text-transform: uppercase;">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION F: Social Media Mentions -->
+        <fieldset class="form-section">
+          <legend class="form-section-legend">
+            <span class="legend-badge">F</span>
+            <span>Social Media Mentions</span>
+          </legend>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="hashtags">
+                <span>Hashtags</span>
+              </label>
+              <input type="text" class="form-control" id="hashtags" name="hashtags" placeholder="#PMIPCC #ProjectManagement #Leadership">
+            </div>
+
+            <div class="form-group" id="group-mentions">
+              <label class="form-label" for="mentions">
+                <span>@Mentions (Number of Mentions)</span>
+              </label>
+              <select class="form-select" id="mentions" name="mentions" aria-describedby="mentions-hint">
+                <option value="0" selected>0 (No mentions)</option>
+                <option value="1">1 mention</option>
+                <option value="2">2 mentions</option>
+                <option value="3">3 mentions</option>
+                <option value="4">4 mentions</option>
+                <option value="5">5 mentions</option>
+                <option value="6">6 mentions</option>
+                <option value="7">7 mentions</option>
+                <option value="8">8 mentions</option>
+                <option value="9">9 mentions</option>
+                <option value="10">10 mentions</option>
+              </select>
+              <span class="input-hint" id="mentions-hint">Select how many mentions you need to dynamically adjust LinkedIn &amp; Instagram fields.</span>
+            </div>
+          </div>
+
+          <!-- Dynamic LinkedIn & Instagram Fields Container -->
+          <div id="dynamicSocialFieldsContainer" style="margin-top: 1rem;">
+            <div class="grid-2">
+              <div class="form-group" id="group-linkedinContainer">
+                <div id="linkedinFieldsList">
+                  <div style="font-size: 0.825rem; color: var(--text-muted); padding: 0.4rem 0; font-style: italic;">No LinkedIn mentions required (0 selected)</div>
+                </div>
+              </div>
+
+              <div class="form-group" id="group-instagramContainer">
+                <div id="instagramFieldsList">
+                  <div style="font-size: 0.825rem; color: var(--text-muted); padding: 0.4rem 0; font-style: italic;">No Instagram mentions required (0 selected)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION G: Media and Attachments -->
+        <fieldset class="form-section">
+          <legend class="form-section-legend">
+            <span class="legend-badge">G</span>
+            <span>Media and Attachments</span>
+          </legend>
+
+          <div class="grid-1">
+            <!-- Drag & Drop Upload Zone -->
+            <div class="dropzone" id="fileDropzone" role="button" tabindex="0" aria-label="Upload files: Drag and drop images or PDF documents here">
+              <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <div class="dropzone-title">Upload Images or PDF Documents</div>
+              <p class="dropzone-subtitle">Drag &amp; drop files here, or click to browse. Max 15MB per file (PNG, JPG, WEBP, PDF).</p>
+              <input type="file" id="mediaFileInput" accept="image/*,application/pdf,.pdf" multiple style="display: none;">
+            </div>
+
+            <!-- Selected File Chips Container -->
+            <div class="file-chips-container" id="fileChipsContainer" aria-live="polite"></div>
+
+            <!-- Public Video Link with Validate Button -->
+            <div class="form-group" id="group-videoPublicLink" style="margin-top: 0.5rem;">
+              <label class="form-label" for="videoPublicLink">
+                <span>Public Video Link</span>
+              </label>
+              <div style="display: flex; gap: 0.5rem; align-items: stretch;">
+                <input type="url" class="form-control" id="videoPublicLink" name="videoPublicLink" placeholder="YouTube, Vimeo, Loom, Google Drive share URL, or direct .mp4 link" aria-describedby="video-error video-hint" style="flex: 1;">
+                <button type="button" class="btn btn-secondary" id="validateVideoLinkBtn" style="white-space: nowrap; padding: 0.65rem 1.15rem; font-size: 0.85rem;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Validate Link</span>
+                </button>
+              </div>
+              <span class="input-hint" id="video-hint">Supports valid YouTube, Vimeo, Loom, public Google Drive, or direct MP4/WebM URLs.</span>
+              <span class="field-error-message" id="video-error">Please provide the public link in order to upload the link</span>
+              <div id="video-success-msg" style="display: none; font-size: 0.825rem; color: var(--color-success); font-weight: 600; margin-top: 0.25rem;">
+                ✓ Public video link is verified and valid.
+              </div>
+            </div>
+
+            <!-- Image Requirement: 1st is Create Image, 2nd is No Image Needed -->
+            <div class="form-group" id="group-imageRequirement" style="margin-top: 0.85rem;">
+              <label class="form-label">
+                <span>Image Requirement <span class="required-star">*</span></span>
+              </label>
+              <div class="radio-group" style="grid-template-columns: repeat(2, 1fr);" role="radiogroup" aria-label="Image Requirement Selection">
+                <label class="radio-card" id="label-imageReq-create">
+                  <input type="radio" name="imageRequirement" id="imageReqCreate" value="Create Image">
+                  <span class="radio-card-label">Create Image</span>
+                </label>
+                <label class="radio-card" id="label-imageReq-none">
+                  <input type="radio" name="imageRequirement" id="imageReqNone" value="No Image Needed">
+                  <span class="radio-card-label">No Image Needed</span>
+                </label>
+              </div>
+              <span class="field-error-message" id="imageRequirement-error" style="display: none; margin-top: 0.5rem;">Please select whether an image is required.</span>
+              <span class="input-hint">Select whether custom artwork should be created for this requisition.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION H: Delivery Requirements -->
+        <fieldset class="form-section">
+          <legend class="form-section-legend">
+            <span class="legend-badge">H</span>
+            <span>Delivery Requirements</span>
+          </legend>
+
+          <div class="grid-1">
+            <!-- Processing Window Notice with EXACT Required Text -->
+            <div class="notice-box" role="note">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <div>
+                <strong>Processing Window:</strong> “Please allow at least two days for processing. Actual delivery depends on current workload and content completeness.”
+              </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 0.5rem;">
+              <div class="form-group" id="group-deliveryDate">
+                <label class="form-label" for="deliveryDate">
+                  <span>Preferred Delivery Date</span>
+                </label>
+                <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" aria-describedby="deliveryDate-hint deliveryDate-error">
+                <span class="input-hint" id="deliveryDate-hint">Optional. If specified, must be at least 48 hours from submission.</span>
+                <span class="field-error-message" id="deliveryDate-error">Please allow at least two days for processing. Actual delivery depends on current workload and content completeness.</span>
+              </div>
+
+              <div class="form-group" id="group-deliveryTime">
+                <label class="form-label" for="deliveryTime">
+                  <span>Preferred Delivery Time</span>
+                </label>
+                <input type="time" class="form-control" id="deliveryTime" name="deliveryTime" value="09:00">
+                <span class="input-hint">Target delivery hour/time of day.</span>
+              </div>
+            </div>
+
+            <div class="form-group" id="group-repostComments" style="margin-top: 0.5rem;">
+              <label class="form-label" for="repostComments">
+                <span>Comments</span>
+              </label>
+              <textarea class="form-textarea" id="repostComments" name="repostComments" rows="3" placeholder="how many times you need to repost this and please mention your preferred dates"></textarea>
+              <span class="input-hint">Specify reposting frequency and target dates if recurring publishing is requested.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Form Submission Actions -->
+        <div class="form-actions-bar">
+          <button type="button" class="btn btn-secondary" id="resetFormBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            <span>Clear Form</span>
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitRequestBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            <span id="submitBtnText">Submit Content Request</span>
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+  </main>
+
+  <!-- PRIVATE TRACKING RECEIPT MODAL (Strictly ID only, no confidential form data) -->
+  <div class="modal-backdrop" id="receiptModal" role="dialog" aria-modal="true" aria-labelledby="receiptModalTitle">
+    <div class="modal-card">
+      <div class="modal-body">
+        <div class="receipt-icon-wrapper" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h2 class="receipt-title" id="receiptModalTitle">Your request has been submitted successfully.</h2>
+        <p class="receipt-subtitle">Your requisition has been recorded in the permanent SQLite database for editorial scheduling.</p>
+
+        <div class="receipt-code-box">
+          <span class="receipt-code" id="receiptReferenceId">REQ-20261027-XXXX</span>
+          <button type="button" class="btn btn-secondary" id="copyReferenceIdBtn" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span id="copyBtnText">Copy Reference ID</span>
+          </button>
+        </div>
+
+        <p class="receipt-instruction">
+          Please retain this Reference ID for your personal tracking. For confidentiality, submitted details are strictly accessible to authorized portfolio leadership.
+        </p>
+
+        <button type="button" class="btn btn-primary" id="closeReceiptBtn" style="width: 100%;">
+          <span>Done &bull; Submit Another Request</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div>
+        <strong>Project Management Institute &bull; Pearl City, Hyderabad Chapter</strong>
+      </div>
+      <div>
+        Portfolio Content Request System &bull; Permanent SQLite Persistence &bull; Defense-in-Depth Confidentiality
+      </div>
+      <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">
+        &copy; 2026 PMI Pearl City Chapter. All rights reserved. &bull; <a href="owner.html">Owner Administration</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js?v=4.2.0"></script>
+</body>
+</html>

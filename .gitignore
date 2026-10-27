@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Environment Configuration & Secrets
+.env
+.env.*
+!.env.example
+
+# Database & Runtime Data
+database.sqlite
+database.sqlite-shm
+database.sqlite-wal
+*.sqlite
+*.db
+*.bak
+
+# Private User Uploads (Preserve directory structure)
+uploads/*
+!uploads/.gitkeep
+
+# Backups & Temporary Storage
+backups/
+temp/
+logs/
+*.log
+
+# OS & Editor Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
