@@ -7,8 +7,14 @@
   <meta name="description" content="PMI Pearl City Hyderabad Chapter - Owner Administration Portal. Confidential management, inspection, and exports for portfolio content requisitions.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="css/styles.css?v=4.0.0">
-  <link rel="stylesheet" href="css/owner.css?v=4.0.0">
+  <link rel="stylesheet" href="css/styles.css?v=4.4.0">
+  <link rel="stylesheet" href="css/owner.css?v=4.4.0">
+  <style>
+    /* Prevent unwanted auto-scroll animation when opening owner login */
+    html, body {
+      scroll-behavior: auto !important;
+    }
+  </style>
   <!-- Version-pinned trusted SheetJS for Client-Side Excel (.xlsx) Generation -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -32,6 +38,11 @@
           <span>Submit Request</span>
         </a>
 
+        <a href="media-request.html" class="nav-button nav-button-media" title="Request Image or Video Creation">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <span>Image / Video Request</span>
+        </a>
+
         <!-- Authenticated Owner Controls -->
         <button type="button" class="nav-button" id="changePasswordNavBtn" style="display: none;" title="Update owner account password">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-6 6l7-7m-7 7l-2 2m-2-2l2-2m-4 4l-4 4a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l4-4m4 4l-2-2"></path></svg>
@@ -47,10 +58,10 @@
   </header>
 
   <!-- Main Administrative Container -->
-  <main class="main-wrapper">
+  <main class="main-wrapper owner-main-wrapper">
 
     <!-- STATE 1: SECURE AUTHENTICATION SCREEN -->
-    <section class="form-card" id="authCard" style="max-width: 480px; margin: 3rem auto; padding: 0;">
+    <section class="form-card" id="authCard" style="max-width: 480px; margin: 1.5rem auto 3rem; padding: 0;">
       <div class="form-header" style="text-align: center; border-bottom: none; padding-bottom: 0.5rem;">
         <div style="width: 58px; height: 58px; border-radius: var(--radius-full); background: var(--pmi-blue-light); color: var(--pmi-dark); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; border: 1.5px solid var(--pmi-blue-border); box-shadow: 0 4px 10px rgba(0, 51, 102, 0.08);">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -200,6 +211,12 @@
               <span>📄 Download CSV</span>
             </button>
 
+            <!-- Security & Submitter IP Address Audit Button -->
+            <button type="button" class="btn btn-secondary btn-sm" id="securityAuditBtn" title="Security & Submitter IP Address Audit Log" style="font-weight: 700; border-color: #0284c7; color: #0369a1;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>🛡️ Security</span>
+            </button>
+
             <!-- Destructive Action Button -->
             <button type="button" class="btn btn-secondary btn-sm" id="clearDatabaseBtn" style="color: var(--color-danger); border-color: var(--color-danger-border);" title="Permanently clear all database requisitions">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -218,11 +235,38 @@
         </div>
       </section>
 
+      <!-- Navigation Tabs: Content Requisitions vs Creative Media Requests -->
+      <div class="owner-tabs-container" style="display: flex; gap: 0.65rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+        <button type="button" class="btn btn-primary" id="tabContentReqsBtn" style="padding: 0.65rem 1.25rem; font-weight: 700; border-radius: var(--radius-md); display: flex; align-items: center; gap: 0.5rem;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>Content Requisitions</span>
+          <span class="badge" id="countContentBadge" style="background: rgba(255,255,255,0.25); color: #fff; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.75rem;">0</span>
+        </button>
+        <button type="button" class="btn btn-secondary" id="tabMediaReqsBtn" style="padding: 0.65rem 1.25rem; font-weight: 700; border-radius: var(--radius-md); display: flex; align-items: center; gap: 0.5rem;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <span>Image &amp; Video Requests</span>
+          <span class="badge" id="countMediaBadge" style="background: #e2e8f0; color: #1e293b; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.75rem;">0</span>
+        </button>
+      </div>
+
       <!-- Requisitions Table Card -->
-      <section class="table-card" aria-label="Requisitions Data Table">
+      <section class="table-card" id="requisitionsTableCard" aria-label="Requisitions Data Table">
         <div class="table-header-bar">
           <div class="table-header-title">Requisitions Log</div>
-          <span class="records-badge" id="recordsCountDisplay">Showing 0 of 0 records</span>
+          <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+            <!-- View Mode Toggle: Table View vs Card View for Laptop and Mobile -->
+            <div class="view-mode-toggle" id="viewModeToggle" role="group" aria-label="Display View Mode">
+              <button type="button" class="view-toggle-btn active" id="viewModeTableBtn" title="Switch to Table View">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+                <span>Table View</span>
+              </button>
+              <button type="button" class="view-toggle-btn" id="viewModeCardsBtn" title="Switch to Card View">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Card View</span>
+              </button>
+            </div>
+            <span class="records-badge" id="recordsCountDisplay">Showing 0 of 0 records</span>
+          </div>
         </div>
 
         <!-- Desktop Table View -->
@@ -402,6 +446,91 @@
     </div>
   </div>
 
+  <!-- MODAL 5: SECURITY & SUBMITTER IP AUDIT LOG -->
+  <div class="modal-backdrop" id="securityModal" role="dialog" aria-modal="true" aria-labelledby="securityModalTitle">
+    <div class="modal-card" style="max-width: 960px; width: 95%;">
+      
+      <div class="inspect-modal-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <div>
+          <h2 id="securityModalTitle" style="color: #fff; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Security &amp; Submitter IP Address Audit Log
+          </h2>
+          <span style="font-size: 0.8rem; color: #94a3b8;">Client IP Tracking &bull; Anti-Abuse Audit Trail &bull; Defense in Depth</span>
+        </div>
+        <button type="button" class="inspect-modal-close" id="closeSecurityModalBtn" aria-label="Close dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="inspect-modal-body" style="padding: 1.5rem;">
+        
+        <!-- Security Metrics Summary Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-md); padding: 1rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 0.05em;">Total Submissions Logged</div>
+            <div id="securityKpiTotal" style="font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">0</div>
+          </div>
+          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 1rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: #166534; font-weight: 700; letter-spacing: 0.05em;">Unique IP Addresses</div>
+            <div id="securityKpiUniqueIps" style="font-size: 1.75rem; font-weight: 800; color: #15803d; margin-top: 0.25rem;">0</div>
+          </div>
+          <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: var(--radius-md); padding: 1rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: #0369a1; font-weight: 700; letter-spacing: 0.05em;">IP Capture Method</div>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #0284c7; margin-top: 0.4rem;">Socket / Proxy Header</div>
+          </div>
+        </div>
+
+        <!-- Security Toolbar: Search and Export -->
+        <div style="display: flex; gap: 0.75rem; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 240px; position: relative;">
+            <input type="text" class="search-input" id="securitySearchInput" placeholder="Filter by IP address, Submitter Name, Email, or Record ID..." style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-md); font-size: 0.85rem;">
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button type="button" class="btn btn-secondary btn-sm" id="refreshSecurityBtn" style="font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;" title="Refresh security audit log">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              <span>Refresh</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="exportSecurityCsvBtn" style="font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem; border-color: #0284c7; color: #0369a1;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>📥 Export Security IP Log (CSV)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Security IP Audit Table -->
+        <div class="table-responsive" style="max-height: 420px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: var(--radius-md);">
+          <table class="data-table" id="securityTable" style="margin: 0; width: 100%;">
+            <thead style="position: sticky; top: 0; background: #f8fafc; z-index: 2;">
+              <tr>
+                <th scope="col" style="padding: 0.6rem 0.75rem; font-size: 0.775rem;">Timestamp (UTC)</th>
+                <th scope="col" style="padding: 0.6rem 0.75rem; font-size: 0.775rem;">Submitter IP Address</th>
+                <th scope="col" style="padding: 0.6rem 0.75rem; font-size: 0.775rem;">Record ID</th>
+                <th scope="col" style="padding: 0.6rem 0.75rem; font-size: 0.775rem;">Form Type</th>
+                <th scope="col" style="padding: 0.6rem 0.75rem; font-size: 0.775rem;">Submitter Details</th>
+                <th scope="col" style="padding: 0.6rem 0.75rem; font-size: 0.775rem;">Portfolio</th>
+              </tr>
+            </thead>
+            <tbody id="securityTableBody">
+              <!-- Dynamically populated via owner.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="securityEmptyState" style="display: none; text-align: center; padding: 2rem; color: #64748b;">
+          <p style="margin: 0; font-size: 0.9rem;">No submission IP records found matching search query.</p>
+        </div>
+
+      </div>
+
+      <div class="inspect-modal-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0;">
+        <span style="font-size: 0.775rem; color: #64748b;">IP addresses logged strictly for security audit, anti-abuse, and operational verification.</span>
+        <button type="button" class="btn btn-secondary" id="closeSecurityModalFooterBtn">Close</button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
@@ -420,6 +549,6 @@
     </div>
   </footer>
 
-  <script src="js/owner.js?v=4.0.0"></script>
+  <script src="js/owner.js?v=4.4.0"></script>
 </body>
 </html>

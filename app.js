@@ -57,6 +57,11 @@
   const copyReferenceIdBtn = document.getElementById('copyReferenceIdBtn');
   const copyBtnText = document.getElementById('copyBtnText');
   const closeReceiptBtn = document.getElementById('closeReceiptBtn');
+  const receiptImageReqNotice = document.getElementById('receiptImageReqNotice');
+  const receiptFillMediaFormBtn = document.getElementById('receiptFillMediaFormBtn');
+  const receiptHostingReqNotice = document.getElementById('receiptHostingReqNotice');
+  const receiptFillHostingFormBtn = document.getElementById('receiptFillHostingFormBtn');
+  const hostingRedirectCountdown = document.getElementById('hostingRedirectCountdown');
 
   // State
   let selectedFiles = []; // Array of { name, size, type, isPdf, dataUrl }
@@ -886,7 +891,57 @@
       if (response.ok && result.success) {
         // Show Private Tracking Receipt
         if (receiptReferenceId) receiptReferenceId.textContent = result.referenceId;
-        openReceiptModal();
+
+        // Check if submitter required an image to be created
+        const needsImageCreated = (payload.imageRequirement === 'Create Image') && !payload.noMediaCheckbox;
+        if (needsImageCreated) {
+          if (receiptImageReqNotice) receiptImageReqNotice.style.display = 'block';
+          if (receiptHostingReqNotice) receiptHostingReqNotice.style.display = 'none';
+          if (receiptFillMediaFormBtn) {
+            const mediaUrl = new URL('media-request.html', window.location.href);
+            mediaUrl.searchParams.set('ref', result.referenceId);
+            mediaUrl.searchParams.set('portfolio', payload.portfolio || '');
+            mediaUrl.searchParams.set('name', payload.submitterName || '');
+            mediaUrl.searchParams.set('email', payload.submitterEmail || '');
+            mediaUrl.searchParams.set('role', payload.submitterRole && payload.submitterRole !== 'NA' ? payload.submitterRole : '');
+            mediaUrl.searchParams.set('phone', payload.submitterPhone && payload.submitterPhone !== 'NA' ? payload.submitterPhone : '');
+            mediaUrl.searchParams.set('title', payload.requestTitle || '');
+            receiptFillMediaFormBtn.href = mediaUrl.toString();
+          }
+          openReceiptModal();
+        } else {
+          // Submitter DOES NOT need an image created -> Direct redirect to hosting details so they can select fields!
+          if (receiptImageReqNotice) receiptImageReqNotice.style.display = 'none';
+          if (receiptHostingReqNotice) receiptHostingReqNotice.style.display = 'block';
+
+          const hostingUrl = new URL('media-request.html', window.location.href);
+          hostingUrl.searchParams.set('mode', 'hosting');
+          hostingUrl.searchParams.set('ref', result.referenceId);
+          hostingUrl.searchParams.set('portfolio', payload.portfolio || '');
+          hostingUrl.searchParams.set('name', payload.submitterName || '');
+          hostingUrl.searchParams.set('email', payload.submitterEmail || '');
+          hostingUrl.searchParams.set('role', payload.submitterRole && payload.submitterRole !== 'NA' ? payload.submitterRole : '');
+          hostingUrl.searchParams.set('phone', payload.submitterPhone && payload.submitterPhone !== 'NA' ? payload.submitterPhone : '');
+          hostingUrl.searchParams.set('title', payload.requestTitle || '');
+          hostingUrl.hash = 'section-hosting';
+
+          if (receiptFillHostingFormBtn) {
+            receiptFillHostingFormBtn.href = hostingUrl.toString();
+          }
+
+          openReceiptModal();
+
+          // Direct redirect so they can select the fields
+          let countdown = 2;
+          const redirectTimer = setInterval(() => {
+            countdown--;
+            if (hostingRedirectCountdown) hostingRedirectCountdown.textContent = String(countdown);
+            if (countdown <= 0) {
+              clearInterval(redirectTimer);
+              window.location.href = hostingUrl.toString();
+            }
+          }, 800);
+        }
         resetForm();
       } else {
         alert(result.error || 'Unable to record content requisition. Please review your input and try again.');

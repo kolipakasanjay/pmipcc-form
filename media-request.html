@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PMI Pearl City Chapter | Image &amp; Video Creation Request</title>
+  <meta name="description" content="PMI Pearl City Hyderabad Chapter - Creative Requisition Management System. Request custom image or video creation and specify post-creation hosting details.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="css/styles.css?v=4.3.0">
+  <style>
+    /* Creative Request Specification Mobile Responsive Layout & Down-by-Down Radio Group */
+    #group-requestType .radio-group,
+    .radio-group-stacked {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+      width: 100% !important;
+      grid-template-columns: 1fr !important;
+    }
+    #group-requestType .radio-card,
+    .radio-group-stacked .radio-card {
+      width: 100% !important;
+      min-height: 52px;
+      padding: 0.85rem 1.15rem;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-radius: var(--radius-md);
+    }
+    #group-requestType .radio-card-label,
+    .radio-group-stacked .radio-card-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.4;
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: break-word;
+      flex: 1;
+    }
+
+    /* Section B & Mobile Adjustments */
+    @media (max-width: 768px) {
+      #section-creative-specs .form-section-legend {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100%;
+        line-height: 1.35;
+      }
+      #section-creative-specs .form-section-legend span:not(.legend-badge) {
+        flex: 1;
+        min-width: 0;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
+      #section-creative-specs .grid-2 {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+      }
+      #section-creative-specs .form-label {
+        font-size: 0.875rem;
+        line-height: 1.35;
+        white-space: normal;
+        word-break: normal;
+      }
+      #section-creative-specs .form-select {
+        font-size: 0.875rem;
+        max-width: 100%;
+      }
+      #section-creative-specs .input-hint {
+        font-size: 0.775rem;
+        line-height: 1.4;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation & Header -->
+  <header class="app-header">
+    <div class="brand-ribbon" aria-hidden="true"></div>
+    <div class="header-container">
+      <a href="index.html" class="brand-wrapper" title="Return to Home Portal" aria-label="PMI Pearl City Chapter Hyderabad - Creative Studio Intake">
+        <img src="assets/pmi-logo-color.svg" alt="PMI Pearl City Chapter Hyderabad" class="brand-logo" width="220" height="62">
+        <div class="brand-badge-box">
+          <span class="brand-subtext">Creative Production Studio</span>
+          <span class="brand-badge" style="background: #ea580c; color: #ffffff;">Media Intake</span>
+        </div>
+      </a>
+      <nav class="header-actions" aria-label="Portal Navigation">
+        <a href="index.html" class="nav-button" title="Return to Content Requisition Submission Form">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>Content Request</span>
+        </a>
+        <a href="owner.html" class="nav-button" title="Access the Owner Administration Portal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Owner Portal</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-wrapper">
+
+    <!-- Creative Requisition Form Card -->
+    <section class="form-card" aria-labelledby="formTitle">
+      
+      <div class="form-header">
+        <span class="form-header-badge" id="formHeaderBadge" style="color: #c2410c; background: #fff7ed; border-color: #fed7aa;">
+          <svg id="formHeaderBadgeIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <span id="formHeaderBadgeText">Creative Asset &amp; Media Studio Intake</span>
+        </span>
+        <h1 id="formTitle">Request Image or Video Creation</h1>
+        <p class="form-header-desc" id="formHeaderDesc">Complete this form to request custom graphics, promotional videos, event flyers, or social media visual assets from the Chapter MARCOM creative production team. Once created, hosting and deployment details will be coordinated for chapter channels.</p>
+
+        <!-- Dynamic Direct Hosting Mode Notification Banner (Visible when mode=hosting) -->
+        <div id="hostingModeBanner" class="notice-box" role="status" style="display: none; background: #ecfdf5; border-color: #a7f3d0; color: #065f46; margin-bottom: 1rem; border-left: 4px solid #10b981;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: #059669; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <div>
+            <strong style="color: #047857; font-size: 0.95rem;">🚀 Direct Hosting &amp; Deployment Mode Active</strong>
+            <div style="font-size: 0.85rem; margin-top: 0.25rem; line-height: 1.45;">
+              This content requisition (<span id="hostingLinkedRefDisplay" style="font-family: monospace; font-weight: 700;"></span>) does not require custom image or video creation. 
+              Creative specifications are bypassed. Please select your hosting channels, target links, and publishing schedule below.
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Linked Requisition Notification Banner -->
+        <div id="linkedRequisitionBanner" class="notice-box" role="status" style="display: none; background: #eff6ff; border-color: #bfdbfe; color: #1e40af; margin-bottom: 1rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <div>
+            <strong>Linked to Content Requisition:</strong> <span id="linkedRequisitionIdText" style="font-family: monospace; font-weight: 700;"></span>
+            <div style="font-size: 0.825rem; margin-top: 0.2rem;">Your portfolio and submitter details have been prefilled automatically from your initial requisition.</div>
+          </div>
+        </div>
+
+        <!-- Privacy & Workflow Assurance Banner -->
+        <div class="privacy-banner" role="note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          <div>
+            <strong>Creative Requisition Security:</strong> Submissions are stored securely in SQLite and reviewed solely by authorized portfolio leadership and creative designers.
+          </div>
+        </div>
+      </div>
+
+      <form id="mediaRequestForm" class="form-body" novalidate>
+
+        <!-- SECTION A: Submitter & Requisition Information -->
+        <fieldset class="form-section" id="section-requester">
+          <legend class="form-section-legend">
+            <span class="legend-badge">A</span>
+            <span>Requester &amp; Portfolio Information</span>
+          </legend>
+
+          <div class="grid-2">
+            <div class="form-group full-span" id="group-contentReqId">
+              <label class="form-label" for="contentReqId">
+                <span>Associated Content Requisition ID</span>
+              </label>
+              <input type="text" class="form-control" id="contentReqId" name="contentReqId" placeholder="e.g., REQ-20261030-XXXX (leave blank if standalone creative request)">
+              <span class="input-hint">If this creative asset belongs to an existing content requisition, enter or keep the Reference ID here.</span>
+            </div>
+
+            <div class="form-group full-span" id="group-portfolio">
+              <label class="form-label" for="portfolio">
+                <span>Request from Which Portfolio <span class="required-star">*</span></span>
+              </label>
+              <select class="form-select" id="portfolio" name="portfolio" required aria-describedby="portfolio-hint portfolio-error">
+                <option value="">-- Select Designated Portfolio (1 of 12) --</option>
+                <option value="President">1. President</option>
+                <option value="Governance Team">2. Governance Team</option>
+                <option value="Events Team">3. Events Team</option>
+                <option value="General Secretary">4. General Secretary</option>
+                <option value="MARCOM Team">5. MARCOM Team</option>
+                <option value="Finance Team">6. Finance Team</option>
+                <option value="Volunteers Team">7. Volunteers Team</option>
+                <option value="Membership">8. Membership</option>
+                <option value="Social Impact">9. Social Impact</option>
+                <option value="Academia">10. Academia</option>
+                <option value="Corporate Team">11. Corporate Team</option>
+                <option value="Academy">12. Academy</option>
+              </select>
+              <span class="input-hint" id="portfolio-hint">Designated portfolio requesting this image or video production.</span>
+              <span class="field-error-message" id="portfolio-error">Please select a portfolio from the dropdown list.</span>
+            </div>
+
+            <div class="form-group" id="group-submitterName">
+              <label class="form-label" for="submitterName">
+                <span>Full Name <span class="required-star">*</span></span>
+              </label>
+              <input type="text" class="form-control" id="submitterName" name="submitterName" autocomplete="name" placeholder="First and Last Name" required aria-describedby="name-error">
+              <span class="field-error-message" id="name-error">Please enter the requester's full name.</span>
+            </div>
+
+            <div class="form-group" id="group-submitterRole">
+              <label class="form-label" for="submitterRole">
+                <span>Role / Designation</span>
+              </label>
+              <input type="text" class="form-control" id="submitterRole" name="submitterRole" placeholder="e.g., Portfolio Lead, Director, Volunteer">
+            </div>
+
+            <div class="form-group" id="group-submitterEmail">
+              <label class="form-label" for="submitterEmail">
+                <span>Email Address <span class="required-star">*</span></span>
+              </label>
+              <input type="email" class="form-control" id="submitterEmail" name="submitterEmail" autocomplete="email" placeholder="name@organization.org" required aria-describedby="email-error">
+              <span class="field-error-message" id="email-error">Please provide a valid email address.</span>
+            </div>
+
+            <div class="form-group" id="group-submitterPhone">
+              <label class="form-label" for="submitterPhone">
+                <span>Phone Number</span>
+              </label>
+              <input type="tel" class="form-control" id="submitterPhone" name="submitterPhone" placeholder="+91 98765 43210">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Dynamic Hosting Mode Bypass Notice (Shown when in Hosting Mode) -->
+        <div id="hostingBypassNotice" style="display: none; margin-bottom: 1.5rem; padding: 1.15rem 1.35rem; background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: var(--radius-md); text-align: left;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.65rem;">
+              <span style="font-size: 1.25rem;">✨</span>
+              <span style="font-size: 0.875rem; color: #334155; font-weight: 600;">
+                Image / Video creation sections (B &amp; C) are bypassed — this requisition uses pre-existing visuals or text-only copy.
+              </span>
+            </div>
+            <button type="button" id="toggleCreativeSectionsBtn" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
+              Need Image Created Instead? Show Creative Specs
+            </button>
+          </div>
+        </div>
+
+        <!-- SECTION B: Creative Request Specifications -->
+        <fieldset class="form-section" id="section-creative-specs">
+          <legend class="form-section-legend">
+            <span class="legend-badge">B</span>
+            <span>Creative Request Specifications (Image / Video)</span>
+          </legend>
+
+          <div class="grid-1">
+            <!-- Request Type (Image, Video, Both) -->
+            <div class="form-group" id="group-requestType">
+              <label class="form-label">
+                <span>What Type of Asset Needs to be Created? <span class="required-star">*</span></span>
+              </label>
+              <div class="radio-group radio-group-stacked" role="radiogroup" aria-label="Creative Asset Type">
+                <label class="radio-card selected" id="label-type-image">
+                  <input type="radio" name="requestType" id="typeImage" value="Image Creation" checked>
+                  <span class="radio-card-label">🖼️ Image Creation</span>
+                </label>
+                <label class="radio-card" id="label-type-video">
+                  <input type="radio" name="requestType" id="typeVideo" value="Video Creation">
+                  <span class="radio-card-label">🎬 Video Creation</span>
+                </label>
+                <label class="radio-card" id="label-type-both">
+                  <input type="radio" name="requestType" id="typeBoth" value="Both">
+                  <span class="radio-card-label">🎨 Both (Image &amp; Video)</span>
+                </label>
+              </div>
+              <span class="input-hint">Select whether you require custom static graphics, promotional video, or a complete campaign suite.</span>
+            </div>
+
+            <div class="grid-2" style="margin-top: 0.5rem;">
+              <!-- Asset Category -->
+              <div class="form-group" id="group-assetCategory">
+                <label class="form-label" for="assetCategory">
+                  <span>Creative Purpose / Category <span class="required-star">*</span></span>
+                </label>
+                <select class="form-select" id="assetCategory" name="assetCategory" required>
+                  <option value="Event Announcement" selected>1. Event Announcement / Flyer</option>
+                  <option value="Speaker Spotlight">2. Speaker Spotlight / Panelist Intro</option>
+                  <option value="Workshop & PDU">3. Workshop / Masterclass / PDU Session</option>
+                  <option value="Chapter Milestone">4. Chapter Milestone / Award / Celebration</option>
+                  <option value="Volunteer Appreciation">5. Volunteer &amp; Member Spotlight</option>
+                  <option value="Newsletter Header">6. Newsletter Header / Email Graphic</option>
+                  <option value="Video Reel / Teaser">7. Video Reel / Teaser Clip / Short Promo</option>
+                  <option value="Other Custom Requisition">8. Other Custom Visual Asset</option>
+                </select>
+                <span class="input-hint">Primary communicative purpose of this asset.</span>
+              </div>
+
+              <!-- Dimensions / Orientation -->
+              <div class="form-group" id="group-dimensions">
+                <label class="form-label" for="dimensions">
+                  <span>Target Dimensions / Aspect Ratio <span class="required-star">*</span></span>
+                </label>
+                <select class="form-select" id="dimensions" name="dimensions" required>
+                  <option value="Square (1:1)" selected>Square 1:1 (1080x1080 - LinkedIn &amp; Instagram Post)</option>
+                  <option value="Vertical (9:16)">Vertical 9:16 (1080x1920 - Reels, Stories, Shorts)</option>
+                  <option value="Landscape (16:9)">Landscape 16:9 (1920x1080 - YouTube, Web Banners)</option>
+                  <option value="Print / A4">Document / A4 Flyer (Print, Posters, Standees)</option>
+                  <option value="Custom">Custom Dimensions (Specify below)</option>
+                </select>
+                <span class="input-hint">Preferred visual format and canvas proportion.</span>
+              </div>
+            </div>
+
+            <!-- Custom Dimensions input (hidden by default) -->
+            <div class="form-group" id="group-customDimensions" style="display: none; margin-top: 0.25rem;">
+              <label class="form-label" for="customDimensions">
+                <span>Specify Custom Dimensions</span>
+              </label>
+              <input type="text" class="form-control" id="customDimensions" name="customDimensions" placeholder="e.g., 1200 x 628 px (LinkedIn Banner) or 800 x 400 px">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION C: Creative Brief & Content Details -->
+        <fieldset class="form-section" id="section-creative-brief">
+          <legend class="form-section-legend">
+            <span class="legend-badge">C</span>
+            <span>Creative Brief &amp; Content Copy</span>
+          </legend>
+
+          <div class="grid-1">
+            <div class="form-group" id="group-projectTitle">
+              <label class="form-label" for="projectTitle">
+                <span>Creative Project / Asset Title <span class="required-star">*</span></span>
+              </label>
+              <input type="text" class="form-control" id="projectTitle" name="projectTitle" placeholder="e.g., PMP Prep Masterclass Poster or Annual Chapter Gala Teaser" required aria-describedby="title-error">
+              <span class="field-error-message" id="title-error">Please provide a clear title or topic for the creative requisition.</span>
+            </div>
+
+            <div class="form-group" id="group-headlineText">
+              <label class="form-label" for="headlineText">
+                <span>Primary Headline / Text on Visual <span class="required-star">*</span></span>
+              </label>
+              <input type="text" class="form-control" id="headlineText" name="headlineText" placeholder="Exact words to be highlighted on the visual (or NA)" required>
+              <span class="input-hint">The main prominent title or hook that must be clearly legible on the image or video thumbnail.</span>
+            </div>
+
+            <div class="form-group" id="group-supportingText">
+              <label class="form-label" for="supportingText">
+                <span>Supporting Text &amp; Details for the Graphic</span>
+              </label>
+              <textarea class="form-textarea" id="supportingText" name="supportingText" rows="4" placeholder="Provide dates, times, venue, speaker names, registration link, PDU credits, or key bullet points to be included on the graphic/video... (or enter NA)"></textarea>
+              <span class="input-hint">List all secondary information, dates, speaker bios, and sponsor logos needed on the visual.</span>
+            </div>
+
+            <div class="form-group" id="group-designGuidance">
+              <label class="form-label" for="designGuidance">
+                <span>Design Guidance, Visual Tone &amp; Branding Preferences</span>
+              </label>
+              <textarea class="form-textarea" id="designGuidance" name="designGuidance" rows="3" placeholder="e.g., Corporate PMI Blue palette, elegant dark background, modern typography, vibrant youth theme, formal leadership tone..."></textarea>
+              <span class="input-hint">Color preferences, aesthetic mood, and alignment with PMI global branding standards.</span>
+            </div>
+
+            <!-- Drag & Drop Upload Zone for Brand Assets / Photos -->
+            <div class="form-group" style="margin-top: 0.5rem;">
+              <label class="form-label">
+                <span>Reference Files, Speaker Headshots &amp; Brand Assets</span>
+              </label>
+              <div class="dropzone" id="fileDropzone" role="button" tabindex="0" aria-label="Upload reference files: Drag and drop speaker portraits, sponsor logos, or guidelines here">
+                <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <div class="dropzone-title">Upload Logos, Headshots or Sample Designs</div>
+                <p class="dropzone-subtitle">Drag &amp; drop files here, or click to browse. Max 15MB per file (PNG, JPG, WEBP, PDF).</p>
+                <input type="file" id="mediaFileInput" accept="image/*,application/pdf,.pdf" multiple style="display: none;">
+              </div>
+              <div class="file-chips-container" id="fileChipsContainer" aria-live="polite"></div>
+            </div>
+
+            <!-- Public Video or Inspiration Link -->
+            <div class="form-group" id="group-referenceLink" style="margin-top: 0.5rem;">
+              <label class="form-label" for="referenceLink">
+                <span>Reference Video or Inspiration Link</span>
+              </label>
+              <div style="display: flex; gap: 0.5rem; align-items: stretch; flex-wrap: wrap;">
+                <input type="url" class="form-control" id="referenceLink" name="referenceLink" placeholder="YouTube, Vimeo, Loom, or public Google Drive share URL" style="flex: 1;">
+                <button type="button" class="btn btn-secondary" id="validateVideoLinkBtn" style="white-space: nowrap; padding: 0.65rem 1.15rem; font-size: 0.85rem;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Validate Link</span>
+                </button>
+              </div>
+              <span class="input-hint">Optional. Link to a reference video style, animated sample, or video asset for editing.</span>
+              <div id="video-success-msg" style="display: none; font-size: 0.825rem; color: var(--color-success); font-weight: 600; margin-top: 0.25rem;">
+                ✓ Video link is verified and valid.
+              </div>
+              <span class="field-error-message" id="video-error">Please provide a valid public video link.</span>
+            </div>
+
+            <!-- Delivery Date & Priority -->
+            <div class="grid-2" style="margin-top: 0.5rem;">
+              <div class="form-group" id="group-deliveryDate">
+                <label class="form-label" for="deliveryDate">
+                  <span>Preferred Completion Date</span>
+                </label>
+                <input type="date" class="form-control" id="deliveryDate" name="deliveryDate">
+                <span class="input-hint">Optional. Minimum 48 hours required for creative drafting and review.</span>
+                <span class="field-error-message" id="deliveryDate-error">Please allow at least two days for creative design and rendering.</span>
+              </div>
+
+              <div class="form-group" id="group-priority">
+                <label class="form-label" for="priority">
+                  <span>Production Priority</span>
+                </label>
+                <select class="form-select" id="priority" name="priority">
+                  <option value="Standard" selected>Standard Priority (Normal Editorial Queue)</option>
+                  <option value="High Priority">High Priority (Time-sensitive Event / Announcement)</option>
+                  <option value="Urgent">Urgent (Pre-approved Leadership Requisition)</option>
+                </select>
+                <span class="input-hint">Target processing urgency.</span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION D: Post-Creation Hosting Details Request -->
+        <fieldset class="form-section" id="section-hosting">
+          <legend class="form-section-legend">
+            <span class="legend-badge">D</span>
+            <span id="hostingSectionLegend">Hosting &amp; Deployment Details (Once Created)</span>
+          </legend>
+
+          <div class="grid-1">
+            <!-- Notice on Post-Creation Hosting Request (Shown in Creation Mode) -->
+            <div id="hostingPostCreationNotice" class="notice-box" role="note" style="background: #f0fdf4; border-color: #bbf7d0; color: #166534;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+              <div>
+                <strong>Post-Creation Hosting Coordination:</strong> Once your image or video is created by the MARCOM team, hosting and publishing details are required to deploy the asset. Please provide your intended hosting destinations below so the chapter webmaster and social leads can schedule publishing immediately upon creation.
+              </div>
+            </div>
+
+            <!-- Notice specifically for Direct Hosting Mode -->
+            <div id="hostingDirectNotice" class="notice-box" role="note" style="display: none; background: #ecfdf5; border-color: #a7f3d0; color: #065f46; border-left: 4px solid #10b981;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: #059669; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+              <div>
+                <strong style="color: #047857;">Direct Hosting &amp; Distribution Destinations:</strong> Please select all platforms below where your content should be hosted and distributed. The chapter webmaster will deploy your content according to the channels and schedule selected below.
+              </div>
+            </div>
+
+            <!-- Hosting Channels Checkboxes -->
+            <div class="form-group" id="group-hostingChannels" style="margin-top: 0.5rem;">
+              <label class="form-label">
+                <span>Where Should the Created Asset be Hosted / Published? <span class="required-star">*</span></span>
+              </label>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 0.75rem; margin-top: 0.4rem;">
+                <label class="checkbox-card" style="display: flex; align-items: center; gap: 0.65rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); background: #ffffff; cursor: pointer;">
+                  <input type="checkbox" name="hostingChannel" value="Official Website" checked style="width: 18px; height: 18px; accent-color: var(--pmi-blue);">
+                  <span style="font-size: 0.875rem; font-weight: 600; color: var(--pmi-dark);">🌐 PMIPCC Official Website</span>
+                </label>
+
+                <label class="checkbox-card" style="display: flex; align-items: center; gap: 0.65rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); background: #ffffff; cursor: pointer;">
+                  <input type="checkbox" name="hostingChannel" value="LinkedIn" checked style="width: 18px; height: 18px; accent-color: var(--pmi-blue);">
+                  <span style="font-size: 0.875rem; font-weight: 600; color: var(--pmi-dark);">💼 LinkedIn Page &amp; Feed</span>
+                </label>
+
+                <label class="checkbox-card" style="display: flex; align-items: center; gap: 0.65rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); background: #ffffff; cursor: pointer;">
+                  <input type="checkbox" name="hostingChannel" value="Instagram" checked style="width: 18px; height: 18px; accent-color: var(--pmi-blue);">
+                  <span style="font-size: 0.875rem; font-weight: 600; color: var(--pmi-dark);">📸 Instagram (Feed &amp; Story)</span>
+                </label>
+
+                <label class="checkbox-card" style="display: flex; align-items: center; gap: 0.65rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); background: #ffffff; cursor: pointer;">
+                  <input type="checkbox" name="hostingChannel" value="YouTube" style="width: 18px; height: 18px; accent-color: var(--pmi-blue);">
+                  <span style="font-size: 0.875rem; font-weight: 600; color: var(--pmi-dark);">▶️ YouTube / Shorts</span>
+                </label>
+
+                <label class="checkbox-card" style="display: flex; align-items: center; gap: 0.65rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); background: #ffffff; cursor: pointer;">
+                  <input type="checkbox" name="hostingChannel" value="Cloud Storage / Drive" checked style="width: 18px; height: 18px; accent-color: var(--pmi-blue);">
+                  <span style="font-size: 0.875rem; font-weight: 600; color: var(--pmi-dark);">📁 Cloud Storage / Drive Link</span>
+                </label>
+
+                <label class="checkbox-card" style="display: flex; align-items: center; gap: 0.65rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); background: #ffffff; cursor: pointer;">
+                  <input type="checkbox" name="hostingChannel" value="Email Newsletter" style="width: 18px; height: 18px; accent-color: var(--pmi-blue);">
+                  <span style="font-size: 0.875rem; font-weight: 600; color: var(--pmi-dark);">📧 Newsletter / Broadcast Email</span>
+                </label>
+
+                <label class="checkbox-card" style="display: flex; align-items: center; gap: 0.65rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); background: #ffffff; cursor: pointer;">
+                  <input type="checkbox" name="hostingChannel" value="Event Platform" style="width: 18px; height: 18px; accent-color: var(--pmi-blue);">
+                  <span style="font-size: 0.875rem; font-weight: 600; color: var(--pmi-dark);">🎟️ Event Platform (Townscript/Zoom)</span>
+                </label>
+              </div>
+              <span class="input-hint" style="margin-top: 0.5rem;">Select all channels where the finalized image or video should be hosted and distributed.</span>
+            </div>
+
+            <!-- Target Hosting URL / Webpage Destination -->
+            <div class="form-group" id="group-hostingTargetUrl" style="margin-top: 0.5rem;">
+              <label class="form-label" for="hostingTargetUrl">
+                <span>Target Hosting Webpage or Registration Link</span>
+              </label>
+              <input type="url" class="form-control" id="hostingTargetUrl" name="hostingTargetUrl" placeholder="https://pmi-pcc.org/event-details or registration URL where asset will link">
+              <span class="input-hint">The specific webpage, registration portal, or shared folder where this visual asset should link or be embedded.</span>
+            </div>
+
+            <!-- Hosting Live Date & Time -->
+            <div class="grid-2" style="margin-top: 0.5rem;">
+              <div class="form-group" id="group-hostingLiveDate">
+                <label class="form-label" for="hostingLiveDate">
+                  <span>Target Hosting / Go-Live Date</span>
+                </label>
+                <input type="date" class="form-control" id="hostingLiveDate" name="hostingLiveDate">
+                <span class="input-hint">Target date when the hosted asset should go live publicly.</span>
+              </div>
+
+              <div class="form-group" id="group-hostingWorkflow">
+                <label class="form-label" for="hostingWorkflow">
+                  <span>Post-Creation Hosting Workflow</span>
+                </label>
+                <select class="form-select" id="hostingWorkflow" name="hostingWorkflow">
+                  <option value="Publish Automatically" selected>1. Deploy Automatically (Publish to selected channels once image is ready)</option>
+                  <option value="Request Approval First">2. Request Approval First (Send preview to submitter before hosting)</option>
+                </select>
+                <span class="input-hint">Confirm whether the team should host immediately or request preview sign-off.</span>
+              </div>
+            </div>
+
+            <!-- Hosting & Webmaster Notes -->
+            <div class="form-group" id="group-hostingNotes" style="margin-top: 0.5rem;">
+              <label class="form-label" for="hostingNotes">
+                <span>Hosting, Captions &amp; Publishing Notes</span>
+              </label>
+              <textarea class="form-textarea" id="hostingNotes" name="hostingNotes" rows="3" placeholder="Provide any specific call-to-action button links, alt text, target audience tags, or hosting instructions..."></textarea>
+              <span class="input-hint">Specific guidance for the webmaster or social media team when hosting the visual.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Form Submission Actions -->
+        <div class="form-actions-bar">
+          <button type="button" class="btn btn-secondary" id="resetMediaFormBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            <span>Clear Form</span>
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitMediaRequestBtn" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); border-color: #ea580c;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            <span id="submitMediaBtnText">Submit Creative Request</span>
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+  </main>
+
+  <!-- CREATIVE TRACKING RECEIPT MODAL -->
+  <div class="modal-backdrop" id="mediaReceiptModal" role="dialog" aria-modal="true" aria-labelledby="mediaReceiptModalTitle">
+    <div class="modal-card">
+      <div class="modal-body">
+        <div class="receipt-icon-wrapper" id="mediaReceiptIconBox" aria-hidden="true" style="background: #ffedd5; color: #ea580c;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h2 class="receipt-title" id="mediaReceiptModalTitle">Creative request submitted successfully!</h2>
+        <p class="receipt-subtitle" id="mediaReceiptSubtitle">Your requisition for image/video creation has been recorded in the permanent SQLite database for the MARCOM production team.</p>
+
+        <div class="receipt-code-box">
+          <span class="receipt-code" id="mediaReceiptReferenceId">MED-20261030-XXXX</span>
+          <button type="button" class="btn btn-secondary" id="copyMediaRefBtn" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span id="copyMediaBtnText">Copy Tracking ID</span>
+          </button>
+        </div>
+
+        <!-- Hosting Follow-up Information Box -->
+        <div id="mediaReceiptNextStepsBox" style="margin: 1.25rem 0; padding: 1.15rem; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-md); text-align: left;">
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <span style="font-size: 1.3rem;">🚀</span>
+            <div>
+              <div id="mediaReceiptNextStepsTitle" style="font-weight: 700; color: #166534; font-size: 0.925rem; margin-bottom: 0.2rem;">
+                Hosting &amp; Publishing Next Steps:
+              </div>
+              <p id="mediaReceiptNextStepsText" style="font-size: 0.85rem; color: #14532d; line-height: 1.45; margin: 0;">
+                Once the creative team completes your image or video, your hosting details will be verified and the asset will be deployed to the designated chapter channels. You can also provide or update hosting links anytime.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem;">
+          <a href="index.html" class="btn btn-primary" style="text-decoration: none; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>Return to Content Submission Portal</span>
+          </a>
+          <button type="button" class="btn btn-secondary" id="closeMediaReceiptBtn" style="width: 100%;">
+            <span id="closeMediaReceiptBtnText">Submit Another Creative Request</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div>
+        <strong>Project Management Institute &bull; Pearl City, Hyderabad Chapter</strong>
+      </div>
+      <div>
+        Creative Media Request System &bull; Permanent SQLite Persistence &bull; MARCOM Editorial Studio
+      </div>
+      <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">
+        &copy; 2026 PMI Pearl City Chapter. All rights reserved. &bull; <a href="owner.html">Owner Administration</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/media-request.js?v=2.0.0"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@
   <meta name="description" content="PMI Pearl City Hyderabad Chapter - Portfolio Content Request Management System. Multi-channel editorial intake for organizational portfolios.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="css/styles.css?v=4.0.0">
+  <link rel="stylesheet" href="css/styles.css?v=4.3.0">
 </head>
 <body>
 
@@ -23,6 +23,10 @@
         </div>
       </a>
       <nav class="header-actions" aria-label="Portal Navigation">
+        <a href="media-request.html" class="nav-button nav-button-media" title="Request Image or Video Creation">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <span>Image / Video Request</span>
+        </a>
         <a href="owner.html" class="nav-button" title="Access the Owner Administration Portal">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           <span>Owner Portal</span>
@@ -330,7 +334,7 @@
               <label class="form-label">
                 <span>Image Requirement <span class="required-star">*</span></span>
               </label>
-              <div class="radio-group" style="grid-template-columns: repeat(2, 1fr);" role="radiogroup" aria-label="Image Requirement Selection">
+              <div class="radio-group radio-group-2" role="radiogroup" aria-label="Image Requirement Selection">
                 <label class="radio-card" id="label-imageReq-create">
                   <input type="radio" name="imageRequirement" id="imageReqCreate" value="Create Image">
                   <span class="radio-card-label">Create Image</span>
@@ -424,6 +428,53 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             <span id="copyBtnText">Copy Reference ID</span>
           </button>
+        </div>
+
+        <!-- Dynamic Follow-up Prompt for Image/Video Creation -->
+        <div id="receiptImageReqNotice" class="receipt-action-box" style="display: none; margin: 1.25rem 0; padding: 1.25rem; background: #fff7ed; border: 2px solid #fed7aa; border-radius: var(--radius-md); text-align: left; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.08);">
+          <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+            <div style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; background: #ffedd5; color: #ea580c; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid #fdba74;">
+              🎨
+            </div>
+            <div style="flex: 1;">
+              <div style="font-weight: 700; color: #9a3412; font-size: 1rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span>Action Required: Please Fill Another Form</span>
+                <span style="font-size: 0.7rem; font-weight: 700; background: #ea580c; color: #fff; padding: 0.15rem 0.5rem; border-radius: 999px; text-transform: uppercase;">Creative Request</span>
+              </div>
+              <p style="font-size: 0.875rem; color: #7c2d12; line-height: 1.5; margin: 0 0 0.85rem 0;">
+                You indicated that an <strong>image needs to be created</strong> for this requisition. Please fill out our dedicated <strong>Image / Video Creation Request</strong> form with your visual specifications and hosting requirements.
+              </p>
+              <a href="media-request.html" id="receiptFillMediaFormBtn" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 700; text-decoration: none; width: 100%; background: #ea580c; border-color: #ea580c;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                <span>Fill Image / Video Creation Form &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Follow-up Prompt / Direct Redirection to Hosting Details (When No Image is Needed) -->
+        <div id="receiptHostingReqNotice" class="receipt-action-box" style="display: none; margin: 1.25rem 0; padding: 1.25rem; background: #f0fdf4; border: 2px solid #86efac; border-radius: var(--radius-md); text-align: left; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.08);">
+          <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+            <div style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; background: #dcfce7; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid #86efac;">
+              🚀
+            </div>
+            <div style="flex: 1;">
+              <div style="font-weight: 700; color: #166534; font-size: 1rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span>Next Step: Hosting &amp; Deployment Details</span>
+                <span style="font-size: 0.7rem; font-weight: 700; background: #16a34a; color: #fff; padding: 0.15rem 0.5rem; border-radius: 999px; text-transform: uppercase;">Direct Redirect</span>
+              </div>
+              <p style="font-size: 0.875rem; color: #14532d; line-height: 1.5; margin: 0 0 0.85rem 0;">
+                No custom image creation is needed for your requisition. You are being redirected directly to the <strong>Hosting Details</strong> section to select your target publishing channels, website destinations, and preferred go-live date.
+              </p>
+              <a href="media-request.html?mode=hosting" id="receiptFillHostingFormBtn" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 700; text-decoration: none; width: 100%; background: #16a34a; border-color: #16a34a;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                <span>Proceed to Hosting Details Immediately &rarr;</span>
+              </a>
+              <div style="font-size: 0.775rem; color: #15803d; margin-top: 0.5rem; text-align: center; font-weight: 600;">
+                Redirecting automatically in <span id="hostingRedirectCountdown">2</span>s...
+              </div>
+            </div>
+          </div>
         </div>
 
         <p class="receipt-instruction">

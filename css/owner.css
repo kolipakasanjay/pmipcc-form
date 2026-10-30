@@ -7,11 +7,19 @@
  * ==============================================================================
  */
 
+/* Fluid, Responsive Master Container for Laptop & Mobile Viewports */
+.owner-main-wrapper {
+  max-width: 1560px !important;
+  width: 100% !important;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 3.5rem !important;
+}
+
 /* Dashboard Container */
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.5rem;
   width: 100%;
 }
 
@@ -309,6 +317,59 @@
   color: var(--text-secondary);
 }
 
+/* View Mode Toggle (Desktop Table vs Mobile Touch Cards) */
+.view-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--surface-subtle);
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-full);
+  padding: 2px;
+  gap: 2px;
+}
+
+.view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border: none;
+  background: transparent;
+  font-family: var(--font-heading);
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.view-toggle-btn:hover {
+  color: var(--pmi-dark);
+}
+
+.view-toggle-btn.active {
+  background-color: #ffffff;
+  color: var(--pmi-blue);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Force view overrides when user explicitly clicks Table or Card */
+.table-card.force-table-view .table-responsive {
+  display: block !important;
+}
+.table-card.force-table-view .mobile-cards-list {
+  display: none !important;
+}
+
+.table-card.force-cards-view .table-responsive {
+  display: none !important;
+}
+.table-card.force-cards-view .mobile-cards-list {
+  display: flex !important;
+}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -533,21 +594,81 @@
   gap: 0.5rem;
 }
 
+/* Body Scroll Lock when Modal is Active */
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+/* Modal Dialogs - High z-index, responsive overflow, smooth touch scrolling */
+.modal-backdrop {
+  z-index: 99999 !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.5rem 1rem !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-backdrop.is-open {
+  display: flex !important;
+}
+
+.modal-card {
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: 94vh !important;
+  max-height: 94dvh !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden !important;
+}
+
+.modal-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+}
+
+#securityModal .modal-card {
+  max-width: 1040px !important;
+  width: 95% !important;
+  max-height: 94vh !important;
+  max-height: 94dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+#securityModal .inspect-modal-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
 /* Inspection Modal Specifics */
 .inspect-modal-card {
-  max-width: 740px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
+  max-width: 880px !important;
+  width: 95% !important;
+  max-height: 94vh !important;
+  max-height: 94dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
 }
 
 .inspect-modal-header {
+  flex-shrink: 0 !important;
   padding: 1.25rem 1.75rem;
   background: linear-gradient(90deg, var(--pmi-dark) 0%, #004b87 100%);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
 }
 
 .inspect-modal-header h2 {
@@ -560,11 +681,15 @@
   border: none;
   color: #ffffff;
   cursor: pointer;
-  padding: 0.35rem;
-  border-radius: var(--radius-xs);
+  padding: 0.5rem;
+  min-width: 42px;
+  min-height: 42px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
 }
 
 .inspect-modal-close:hover {
@@ -572,14 +697,19 @@
 }
 
 .inspect-modal-body {
-  padding: 1.75rem;
-  overflow-y: auto;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  padding: 1.5rem 1.75rem;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .inspect-modal-footer {
+  flex-shrink: 0 !important;
   padding: 1rem 1.75rem;
   border-top: 1px solid var(--border-light);
   background-color: var(--surface-subtle);
@@ -619,6 +749,8 @@
   font-size: 0.925rem;
   color: var(--text-primary);
   line-height: 1.45;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .details-content-box {
@@ -629,8 +761,11 @@
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--text-primary);
-  max-height: 220px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: visible;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .attachment-preview-box {
@@ -743,14 +878,256 @@
   }
 
   .action-buttons-group {
-    justify-content: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
   }
 
   .action-buttons-group .btn {
-    flex: 1;
+    flex: 1 1 calc(50% - 0.5rem);
+    min-height: 42px;
   }
 
   .details-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Header Actions on Mobile: 2-Column Responsive Grid so buttons never cut off */
+  .header-container {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.65rem !important;
+    padding: 0.65rem 0.85rem !important;
+  }
+
+  .header-container .brand-wrapper {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  .header-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.45rem !important;
+    width: 100% !important;
+  }
+
+  .header-actions .nav-button {
+    flex: 1 1 calc(50% - 0.45rem) !important;
+    min-height: 38px !important;
+    padding: 0.45rem 0.5rem !important;
+    font-size: 0.775rem !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+  }
+
+  .header-actions .nav-button span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 640px) {
+  .owner-main-wrapper {
+    padding: 0.85rem 0.85rem 2.5rem !important;
+  }
+
+  /* Navigation Tabs: clean 2-column grid on mobile */
+  .owner-tabs-container {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .owner-tabs-container .btn {
+    width: 100% !important;
+    padding: 0.65rem 0.5rem !important;
+    font-size: 0.8rem !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 0.35rem !important;
+  }
+
+  .owner-tabs-container .btn span:not(.badge) {
+    white-space: normal !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Modals on Mobile: Fits viewport, sticky header and footer, fully scrollable body */
+  .modal-backdrop {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.5rem !important;
+  }
+
+  .modal-card,
+  .inspect-modal-card,
+  #securityModal .modal-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    max-height: 94vh !important;
+    max-height: 94dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: var(--radius-lg) !important;
+    overflow: hidden !important;
+  }
+
+  .inspect-modal-header {
+    flex-shrink: 0 !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  .inspect-modal-header h2 {
+    font-size: 1rem !important;
+  }
+
+  .inspect-modal-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    padding: 1rem !important;
+    gap: 1rem !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+  }
+
+  .inspect-modal-footer {
+    flex-shrink: 0 !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .inspect-modal-footer .btn {
+    width: 100% !important;
+    min-height: 44px !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    justify-content: center !important;
+  }
+
+  .details-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+  }
+
+  .details-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    width: 100% !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .details-content-box {
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0.75rem 0.85rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    white-space: pre-wrap !important;
+  }
+
+  .details-value {
+    font-size: 0.875rem !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .attachment-item {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .attachment-item .action-btn-sm {
+    width: 100% !important;
+    min-height: 40px !important;
+    justify-content: center !important;
+  }
+
+  .inspect-modal-body select {
+    width: 100% !important;
+    min-height: 42px !important;
+  }
+
+  .table-header-bar {
+    padding: 0.85rem 1rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.65rem !important;
+  }
+
+  .table-header-bar > div:last-child {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0.5rem 0.65rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .header-actions .nav-button {
+    padding: 0.4rem 0.45rem !important;
+    font-size: 0.75rem !important;
+    min-height: 36px !important;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.65rem !important;
+  }
+
+  .metric-card {
+    padding: 0.85rem 1rem !important;
+  }
+
+  .metric-value {
+    font-size: 1.65rem !important;
+  }
+
+  .metric-icon-box {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .toolbar-card {
+    padding: 1rem 1.15rem !important;
+  }
+
+  .action-buttons-group {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .action-buttons-group .btn {
+    width: 100% !important;
+    padding: 0.5rem 0.4rem !important;
+    font-size: 0.775rem !important;
+  }
+
+  .action-buttons-group .btn span {
+    white-space: normal !important;
+    line-height: 1.2 !important;
+  }
+
+  #securityModal .inspect-modal-body {
+    padding: 0.85rem !important;
   }
 }

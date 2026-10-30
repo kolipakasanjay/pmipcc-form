@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node test/suite.js && node test/ui_and_security.js"
+    "test": "node test/suite.js && node test/ui_and_security.js && node test/media_and_hosting_suite.js && node test/security_ip_and_express_suite.js"
   },
   "keywords": [
     "pmi",
@@ -18,5 +18,9 @@
     "node": ">=22.0.0"
   },
   "author": "PMI Enterprise Team",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0"
+  }
 }
